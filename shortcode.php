@@ -26,6 +26,7 @@ function include_url_shortcode($atts, $msg = null) {
 			'href' => null,
 			'param' => null,
 			'params' => null,
+			'baseurl' => null,
 			'timeout' => 10,
 			'cache' => 0,
 			'allow-file' => 0,
@@ -37,6 +38,8 @@ function include_url_shortcode($atts, $msg = null) {
 	$href = $attrs['href'];
 	// params=param1,param2,param3
 	$params = isset($attrs['params']) ? $attrs['params'] : $attrs['param'];
+	// base url 
+	$baseurl = $attrs['baseurl'];
 	// timeout=seconds
 	$timeout = $attrs['timeout'];
 	// cache=seconds
@@ -119,6 +122,15 @@ function include_url_shortcode($atts, $msg = null) {
 
 		if ($cache > 0 && $content)
 			set_transient($cache_key, $content, $cache);
+	}
+
+	// rewrite not fqdn with baseurl to ensure jscript etc is working properly
+	// patterns:
+	//   href="/
+	//   src="/
+	if (isset($baseurl)) {
+		$content = str_replace('href="/', 'href="'.$baseurl.'/', $content);
+		$content = str_replace('src="/', 'src="'.$baseurl.'/', $content);
 	}
 
 	return $content;
