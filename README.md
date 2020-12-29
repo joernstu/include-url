@@ -12,6 +12,7 @@ This way, you can create simple frontend page for some internal service, that wi
 - ***<URL>*** - http:// or https:// url
 - ***href*** - (*required*) specifies url to be fetched
 - ***params*** - list of GET parameters, that should be passed to request from request page
+- ***baseurl*** - defines the baseurl to be included for relative urls in the imported source
 - ***timeout*** - request timeout in seconds (default = 10 seconds)
 - ***cache*** - cache data for given amount of seconds in wordpress database (default = 0 / disabled)
 - ***allow-file*** - allow file:// urls in href parameter (default = 0 / disabled, 1 = prepend file with document root, 2 = use absolute path)
